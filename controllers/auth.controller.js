@@ -1,5 +1,6 @@
 import { User } from "../models/User.js";
 import { generateRefreshToken, generateToken } from "../utils/tokenManager.js";
+
 //AQUI ESTAN LOS CONTROLADORES DE LA API
 export const register = async (req, res) => {
     const { email, password } = req.body;
@@ -34,6 +35,7 @@ export const login = async (req, res) => {
         if (!user)
             return res.status(403).json({ error: "No existe este usuario" });
 
+        //compara los passwords,el que manda el user y el que esta en BD
         const respuestaPassword = await user.comparePassword(password);
         if (!respuestaPassword)
             return res.status(403).json({ error: "Contraseña incorrecta" });
