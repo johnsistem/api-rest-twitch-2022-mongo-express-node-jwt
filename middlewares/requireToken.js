@@ -7,9 +7,10 @@ export const requireToken = (req, res, next) => {
 
         if (!token) throw new Error("No Bearer");
 
-        token = token.split(" ")[1];
+        token = token.split(" ")[1];//obtiene solo el token dejando a beare
         const { uid } = jwt.verify(token, process.env.JWT_SECRET);
 
+        //Asignamos el uid que sacamos del token al req.uid para que lo use el info User
         req.uid = uid;
 
         next();
